@@ -1,18 +1,7 @@
-FROM golang:alpine as builder
+FROM zu1k/deepl:latest
 
-WORKDIR /build
+COPY ./start.sh start.sh
 
-COPY main.go .
+EXPOSE ${PORT:-8080}
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o api_transformer main.go
-
-FROM alpine:latest as prod
-
-RUN apk --no-cache add ca-certificates
-
-WORKDIR /root/
-
-COPY --from=0 /build/api_transformer .
-
-EXPOSE 8080
-CMD ["./api_transformer"]
+ENTRYPOINT [ "sh", "start.sh" ]

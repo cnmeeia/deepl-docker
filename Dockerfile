@@ -1,4 +1,4 @@
-FROM zu1k/deepl:latest
+FROM mick2019/deepl:latest
 
 COPY ./start.sh start.sh
 
